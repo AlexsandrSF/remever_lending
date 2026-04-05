@@ -1,0 +1,13 @@
+# Виртуальное окружение Python
+venv/
+env/
+.env
+
+# Кэш Python и скомпилированные файлы
+__pycache__/
+*.pyc
+*.pyo
+
+# Системные файлы (macOS / Windows)
+.DS_Store
+Thumbs.db
