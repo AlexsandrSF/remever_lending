@@ -1,0 +1,302 @@
+<!-- Основываясь на предоставленном макете и Roadmap (в частности, Этап 2 и Этап 5), вот готовый код для файла `templates/index.html`.  -->
+
+<!-- Разметка выполнена с использованием семантических тегов (`<header>`, `<main>`, `<section>`, `<footer>`), подготовлена для подхода Mobile First (добавлен `viewport`, выделен класс для скрытия QR-кода на мобильных, добавлена кнопка бургер-меню) и интегрирована с синтаксисом шаблонизатора Jinja2 (Flask) для правильного подключения статических файлов. Также добавлен блок-заглушка для Яндекс Метрики.
+
+```html -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remever — твой умный помощник в изучении</title>
+    
+    <!-- Подключение базовых стилей -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/reset.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+<body>
+
+    <!-- Шапка сайта -->
+    <header class="header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <img src="{{ url_for('static', filename='images/remeverlogo.svg') }}" alt="Remever Logo">
+            </a>
+            
+            <nav class="desktop-nav">
+                <ul class="nav-list">
+                    <li><a href="#constructor">Конструктор карточек</a></li>
+                    <li><a href="#investors">Для инвесторов</a></li>
+                    <li><a href="#teachers">Для учителей</a></li>
+                </ul>
+            </nav>
+
+            <div class="social-links desktop-socials">
+                <a href="#" aria-label="VK"><img src="{{ url_for('static', filename='icons/vk.svg') }}" alt="VK"></a>
+                <a href="#" aria-label="Telegram"><img src="{{ url_for('static', filename='icons/tg.svg') }}" alt="Telegram"></a>
+                <a href="#" aria-label="Max"><img src="{{ url_for('static', filename='icons/max.svg') }}" alt="Max"></a>
+            </div>
+
+            <!-- Бургер-меню для мобильной версии -->
+            <button class="burger-menu" aria-label="Открыть меню">
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <!-- Секция Hero -->
+        <section class="hero">
+            <div class="container hero-inner">
+                <div class="hero-content">
+                    <span class="tag">без интернета!!!</span>
+                    <h1>Тренируйся где угодно<br>Запоминай навсегда</h1>
+                    <p>Remever — твой умный помощник в изучении любой информации с помощью научно доказанного метода интервального повторения</p>
+                    
+                    <!-- QR-код (скрывается на мобильных устройствах через CSS класс desktop-only) -->
+                    <div class="qr-block desktop-only">
+                        <img src="{{ url_for('static', filename='images/qr-hero.svg') }}" alt="QR код для скачивания">
+                        <span>скачать приложение</span>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="{{ url_for('static', filename='images/hero-phones.png') }}" alt="Интерфейс приложения Remever на смартфонах">
+                </div>
+            </div>
+        </section>
+
+        <!-- Секция О методе -->
+        <section class="method-info">
+            <div class="container method-inner">
+                <div class="method-image">
+                    <img src="{{ url_for('static', filename='images/lockscreen-notification.png') }}" alt="Уведомление на экране блокировки">
+                </div>
+                <div class="method-text">
+                    <h2>Ты не зубришь. Ты учишься вспоминать.</h2>
+                    <p>Многочасовая зубрежка утомляет и не учит твой мозг вспоминать. Чтобы легко вспомнить информацию в нужный момент, нужно ее запомнить и периодически припоминать.</p>
+                    <p>Когда мозг собирается забыть информацию, алгоритм Remever (на основе интервального повторения) определяет это и мягко подталкивает тебя вспомнить. В этот момент ты получишь уведомление о том, что пора потренироваться.</p>
+                    <a href="#more" class="btn btn-primary">Подробнее о методе</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Секция Сравнения методов -->
+        <section class="comparison">
+            <div class="container">
+                <h2>Переверни и сравни методы изучения</h2>
+                <div class="comparison-grid">
+                    <!-- Карточки зубрежки -->
+                    <div class="card card-negative">
+                        <span class="card-tag">Зубрежка многочасовая</span>
+                        <h3>Низкая эффективность запоминания:</h3>
+                        <p>Информация быстро забывается (эффект «в одно ухо влетело, в другое вылетело»), так как не переводится в долговременную память.</p>
+                    </div>
+                    <div class="card card-negative">
+                        <span class="card-tag">Зубрежка многочасовая</span>
+                        <h3>Иллюзия компетентности:</h3>
+                        <p>Постоянное чтение одного и того же создаёт ложное ощущение знания, хотя на деле припоминание без подсказок затруднено.</p>
+                    </div>
+                    <!-- Карточки интервального повторения -->
+                    <div class="card card-positive">
+                        <span class="card-tag">Интервальное повторение</span>
+                        <h3>Кратковременный результат:</h3>
+                        <p>Подходит только для сдачи зачёта или экзамена «на завтра», после чего знания стираются.</p>
+                    </div>
+                    <div class="card card-positive">
+                        <span class="card-tag">Интервальное повторение</span>
+                        <h3>Высокие временные затраты за один подход:</h3>
+                        <p>Требуются многочасовые, изнурительные сессии повторения всего материала сразу.</p>
+                    </div>
+                    <div class="card card-positive">
+                        <span class="card-tag">Интервальное повторение</span>
+                        <h3>Психологическая усталость и стресс:</h3>
+                        <p>Монотонная, скучная нагрузка приводит к истощению и отвращает к учёбе.</p>
+                    </div>
+                    <div class="card card-positive">
+                        <span class="card-tag">Интервальное повторение</span>
+                        <h3>Отсутствие системы и приоритезации:</h3>
+                        <p>Весь материал воспринимается как одинаково важный и сложный. Нет фокуса на слабых местах.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Секция Аудитория -->
+        <section class="audience">
+            <div class="container">
+                <h2>Remever для каждого, кто учится и развивается</h2>
+                <div class="audience-gallery">
+                    <img src="{{ url_for('static', filename='images/audience-student.png') }}" alt="Студент-медик">
+                    <div class="audience-card-with-btn">
+                        <img src="{{ url_for('static', filename='images/audience-teacher.png') }}" alt="Преподаватель">
+                        <a href="#teachers" class="btn btn-primary absolute-btn">Я учитель</a>
+                    </div>
+                    <img src="{{ url_for('static', filename='images/audience-schoolboy.png') }}" alt="Школьник">
+                </div>
+            </div>
+        </section>
+
+        <!-- Секция Повседневная рутина -->
+        <section class="routine">
+            <div class="container routine-inner">
+                <div class="routine-image">
+                    <img src="{{ url_for('static', filename='images/subway-guy.png') }}" alt="Парень учится в метро">
+                </div>
+                <div class="routine-content">
+                    <h2>Легко встраивай тренировки в повседневную рутину</h2>
+                    <p>Едешь в метро? Идешь на пары? Стоишь в очереди? Теперь - это твоё время учиться. Твой новый образ жизни.</p>
+                    <p>Тренируйся, пока ждёшь. Листай карточки в Remever - превращай свои «окна» в мощные сессии запоминания.</p>
+                    <p>Крутыши тренят в Remever вместо соцсетей :)</p>
+                    <a href="#start" class="btn btn-primary">Начать сейчас</a>
+                    <div class="routine-schedule">
+                        <span class="highlight-text">всего 20 минут в день</span>
+                        <ul class="days-list">
+                            <li class="checked">ПН</li>
+                            <li class="checked">ВТ</li>
+                            <li class="checked">СР</li>
+                            <li class="checked">ЧТ</li>
+                            <li class="checked">ПТ</li>
+                            <li class="checked">СБ</li>
+                            <li class="checked">ВС</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Секция Видео -->
+        <section class="video-block">
+            <div class="container">
+                <div class="video-placeholder">
+                    <button class="play-btn" aria-label="Воспроизвести видео">
+                        <img src="{{ url_for('static', filename='icons/play-icon.svg') }}" alt="Play">
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Секция FAQ -->
+        <section class="faq">
+            <div class="container">
+                <h2>Ответы на часто задаваемые вопросы</h2>
+                <div class="accordion" id="faq-accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            Можно ли пользоваться бесплатно?
+                            <span class="icon-arrow"></span>
+                        </button>
+                        <div class="accordion-content">
+                            <p>Да, вы можете использовать приложение абсолютно бесплатно в течение пробного периода (7 дней), затем необходимо выбрать один из тарифов: с оплатой за время использования приложения или с оплатой за количество изучаемых коллекций. Для учителей использование приложения бесплатно навсегда при условии добавления не менее 1 коллекции* в месяц.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            Я не могу тренироваться ежедневно, повлияет ли это на скорость изучения материала?
+                            <span class="icon-arrow"></span>
+                        </button>
+                        <div class="accordion-content"><p>Ответ...</p></div>
+                    </div>
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            Я - автор, у меня есть много знаний и материала, который я хотел бы опубликовать для других людей, куда мне обратиться?
+                            <span class="icon-arrow"></span>
+                        </button>
+                        <div class="accordion-content"><p>Ответ...</p></div>
+                    </div>
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            Как поделиться коллекцией с друзьями?
+                            <span class="icon-arrow"></span>
+                        </button>
+                        <div class="accordion-content"><p>Ответ...</p></div>
+                    </div>
+                    <div class="accordion-item">
+                        <button class="accordion-header" aria-expanded="false">
+                            Есть ли ограничения по количеству коллекций?
+                            <span class="icon-arrow"></span>
+                        </button>
+                        <div class="accordion-content"><p>Ответ...</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Секция Pre-Footer CTA -->
+        <section class="bottom-cta">
+            <div class="container cta-inner">
+                <div class="cta-image">
+                    <img src="{{ url_for('static', filename='images/app-statistics.png') }}" alt="Статистика в приложении">
+                </div>
+                <div class="cta-content">
+                    <h2>4×5 минут х 365 дней =<br>1000 фактов навсегда</h2>
+                    <p>Remever выбирают те, кто привык побеждать — поддерживайте свои компетенции вместе с лидерами.</p>
+                    
+                    <div class="cta-links-grid">
+                        <ul class="footer-nav">
+                            <li><a href="#students">Студентам</a></li>
+                            <li><a href="#teachers">Учителям</a></li>
+                            <li><a href="#parents">Родителям</a></li>
+                        </ul>
+                        <ul class="footer-nav">
+                            <li><a href="#faq">FAQ</a></li>
+                            <li><a href="#contacts">Контакты</a></li>
+                            <li><a href="#investors">Инвесторам</a></li>
+                        </ul>
+                        <div class="cta-qr desktop-only">
+                            <img src="{{ url_for('static', filename='images/qr-footer.svg') }}" alt="QR код">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Подвал сайта -->
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div class="copyright">© 2026 Remever</div>
+            <div class="legal-links">
+                <a href="#privacy">Политика конфиденциальности</a>
+                <a href="#cookie">Использование cookie</a>
+            </div>
+            <div class="app-badges">
+                <a href="#" aria-label="Скачать в RuStore">
+                    <img src="{{ url_for('static', filename='images/rustore-badge.jpg') }}" alt="Доступно в RuStore">
+                </a>
+            </div>
+            <div class="social-links">
+                <a href="#" aria-label="VK"><img src="{{ url_for('static', filename='icons/vk-blue.svg') }}" alt="VK"></a>
+                <a href="#" aria-label="Telegram"><img src="{{ url_for('static', filename='icons/tg-blue.svg') }}" alt="Telegram"></a>
+                <a href="#" aria-label="max"><img src="{{ url_for('static', filename='icons/max-blue.svg') }}" alt="max"></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Подключение JS (Логика аккордеона, бургер-меню и т.д.) -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+    <!-- Яндекс Метрика (Этап 7 RoadMap) -->
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+       (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+       m[i].l=1*new Date();
+       for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+       k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+       (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+       ym(00000000, "init", {
+            clickmap:true,
+            trackLinks:true,
+            accurateTrackBounce:true,
+            webvisor:true
+       });
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/00000000" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+
+</body>
+</html>
+```
