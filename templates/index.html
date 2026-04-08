@@ -21,7 +21,7 @@
     <header class="header">
         <div class="container header-inner">
             <a href="/" class="logo">
-                <img src="{{ url_for('static', filename='images/remeverlogo.svg') }}" alt="Remever Logo">
+                <img src="{{ url_for('static', filename='icons/remeverlogo.svg') }}" alt="Remever Logo">
             </a>
             
             <nav class="desktop-nav">
@@ -35,7 +35,7 @@
             <div class="social-links desktop-socials">
                 <a href="#" aria-label="VK"><img src="{{ url_for('static', filename='icons/vk.svg') }}" alt="VK"></a>
                 <a href="#" aria-label="Telegram"><img src="{{ url_for('static', filename='icons/tg.svg') }}" alt="Telegram"></a>
-                <a href="#" aria-label="Max"><img src="{{ url_for('static', filename='icons/max.svg') }}" alt="Max"></a>
+                <a href="#" aria-label="Max"><img src="{{ url_for('static', filename='icons/max.svg') }}" alt="Max" style="height: 40px;"></a>
             </div>
 
             <!-- Бургер-меню для мобильной версии -->
@@ -53,7 +53,7 @@
             <div class="container hero-inner">
                 <div class="hero-content">
                     <span class="tag">без интернета!!!</span>
-                    <h1>Тренируйся где угодно<br>Запоминай навсегда</h1>
+                    <h1 class="text-primary-color">Тренируйся где угодно<br>Запоминай навсегда</h1>
                     <p>Remever — твой умный помощник в изучении любой информации с помощью научно доказанного метода интервального повторения</p>
                     
                     <!-- QR-код (скрывается на мобильных устройствах через CSS класс desktop-only) -->
@@ -257,7 +257,7 @@
     <!-- Подвал сайта -->
     <footer class="footer">
         <div class="container footer-inner">
-            <div class="copyright">© 2026 Remever</div>
+            <div class="text-primary-color" class="copyright" >© 2026 Remever</div>
             <div class="legal-links">
                 <a href="#privacy">Политика конфиденциальности</a>
                 <a href="#cookie">Использование cookie</a>

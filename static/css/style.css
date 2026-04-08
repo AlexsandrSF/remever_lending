@@ -1,7 +1,7 @@
 /* ==========================================================================   CSS Variables   ========================================================================== */
 :root {
     /* Цветовая палитра из макета */
-    --color-primary: #5138EE;
+    --color-primary: #4633BF;
     --color-text-main: #111111;
     --color-text-muted: #666666;
     --color-bg-light: #F8F9FA;
@@ -134,7 +134,7 @@ section {
 }
 
 .logo img {
-    height: 24px;
+    height: 52px;
 }
 
 .burger-menu {
@@ -174,7 +174,7 @@ section {
 
 /* ==========================================================================   Method Section   ========================================================================== */
 .method-info {
-    background-color: var(--color-white);
+    background-color: transparent;
 }
 
 .method-inner {
@@ -426,7 +426,11 @@ section {
 
 .social-links {
     display: flex;
-    gap: 16px;
+    gap: 32px;
+}
+
+.text-primary-color {
+    color: var(--color-primary);
 }
 
 /* ==========================================================================   Media Queries (Tablet & Desktop)   ========================================================================== */
