@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 # Инициализация приложения Flask
 # # Flask автоматически ищет шаблоны в папке /templates и статику в /static
+
 app = Flask(__name__)
 
 

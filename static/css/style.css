@@ -142,11 +142,11 @@ section {
 
 .tag {
   display: inline-block;
+  margin-left: 58%;  
   color: #ff5c69;
   font-family: "Bad Script", cursive;
   font-size: 24px;
   transform: rotate(-6.28deg);
-  margin-bottom: 12px;
   text-align: end;
   
 }
@@ -479,6 +479,7 @@ section {
 
 .text-primary-color {
   color: var(--color-primary);
+
 }
 
 /* =========== Media Queries (Tablet & Desktop)   =============================================================== */
@@ -572,6 +573,7 @@ section {
 
   .desktop-only {
     display: flex;
+    
   }
 
   .burger-menu {
@@ -624,12 +626,25 @@ section {
   .hero-image {
     flex: 1;
     max-width: 50%;
+    mask-image: linear-gradient(to right, black 70%, transparent)
+
   }
 
+  .hero-image img {
+    height: 200%;
+  }
+
+
   .qr-block {
+    display: grid;
     margin-top: 32px;
+    justify-content: start;
     align-items: center;
-    gap: 16px;
+    gap: 2px;
+  }
+
+  .qr-text {
+    text-align: center;
   }
 
   .qr-block span {
