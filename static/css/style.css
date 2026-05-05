@@ -117,27 +117,34 @@ section {
 
 /* ====================   UI Elements   ========================================================================== */
 .btn {
+  width: 286px;
+  height: 72px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 16px 32px;
-  border-radius: var(--radius-lg);
-  font-weight: 500;
-  font-size: 16px;
+  padding: 24px 40px;
+  border-radius: 24px;
+  font-weight: lighter;
+  font-size: 20px;
   text-align: center;
   cursor: pointer;
   transition: var(--transition);
   border: none;
-  width: 100%;
+}
+
+.btn-container {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 24px;
 }
 
 .btn-primary {
   background-color: var(--color-primary);
   color: var(--color-white);
-}
+  }
 
 .btn-primary:hover {
-  background-color: #4029ce;
+  background-color: #6658c3;
 }
 
 .tag {
@@ -208,15 +215,21 @@ section {
   flex-direction: column;
   gap: 32px;
   text-align: center;
+  margin-top: 2%;
 }
 
-.hero-content p {
+.hero-content-text {
   color: var(--color-text-muted);
   margin-bottom: 24px;
+  font-family: inter;
+  font-weight: normal;
+  font-size: 20px;
+  
 }
 
 .hero-image {
   margin: 0 auto;
+  margin-left: 5em;
 }
 
 /* ==================   Method Section   ========================================================================== */
@@ -629,6 +642,17 @@ section {
     mask-image: linear-gradient(to right, black 70%, transparent)
 
   }
+
+.routine-image-hero-image {
+  transform: scale(1.4); /* Увеличит картинку на 10% */
+  transform-origin: center; /* Точка масштабирования */
+}
+
+.routine-image {
+  transform: scale(1); /* Увеличит картинку на 10% */
+  transform-origin: center; /* Точка масштабирования */
+}
+
 
   .hero-image img {
     height: 200%;

@@ -59,7 +59,7 @@
                 <div class="hero-content">
                     <span class="tag font-bad-script">без интернета!!!</span>
                     <h1 class="text-primary-color">Тренируйся где угодно<br>Запоминай навсегда</h1>
-                    <p>Remever — твой умный помощник в изучении любой информации с помощью научно доказанного метода интервального повторения</p>
+                    <p class="hero-content-text">Remever — твой умный помощник в изучении любой информации с помощью научно доказанного метода интервального повторения</p>
                     
                     <!-- QR-код (скрывается на мобильных устройствах через CSS класс desktop-only) -->
                     <div class="qr-block desktop-only">
@@ -67,8 +67,8 @@
                         <span class="qr-text">скачать приложение</span>
                     </div>
                 </div>
-                <div class="hero-image">
-                    <img src="{{ url_for('static', filename='images/hero-phones.png') }}" alt="Интерфейс приложения Remever на смартфонах">
+                <div class="hero-image routine-image-hero-image">
+                    <img src="{{ url_for('static', filename='images/hero-phones-hd.png') }}" alt="Интерфейс приложения Remever на смартфонах">
                 </div>
             </div>
         </section>
@@ -77,13 +77,15 @@
         <section class="method-info">
             <div class="container method-inner">
                 <div class="method-image">
-                    <img src="{{ url_for('static', filename='images/lockscreen-notification.png') }}" alt="Уведомление на экране блокировки">
+                    <img src="{{ url_for('static', filename='images/app-statistics.png') }}" alt="Уведомление на экране блокировки">
                 </div>
                 <div class="method-text">
                     <h2>Ты не зубришь. Ты учишься вспоминать.</h2>
-                    <p>Многочасовая зубрежка утомляет и не учит твой мозг вспоминать. Чтобы легко вспомнить информацию в нужный момент, нужно ее запомнить и периодически припоминать.</p>
-                    <p>Когда мозг собирается забыть информацию, алгоритм Remever (на основе интервального повторения) определяет это и мягко подталкивает тебя вспомнить. В этот момент ты получишь уведомление о том, что пора потренироваться.</p>
-                    <a href="#more" class="btn btn-primary">Подробнее о методе</a>
+                    <p class="hero-content-text">Многочасовая зубрежка утомляет и не учит твой мозг вспоминать. Чтобы легко вспомнить информацию в нужный момент, нужно ее запомнить и периодически припоминать.</p>
+                    <p class="hero-content-text">Когда мозг собирается забыть информацию, алгоритм Remever (на основе интервального повторения) определяет это и мягко подталкивает тебя вспомнить. В этот момент ты получишь уведомление о том, что пора потренироваться.</p>
+                    <div class="btn-container">
+                        <a href="#more" class="btn btn-primary">Подробнее о методе</a>
+                    </div>
                 </div>
             </div>
         </section>
