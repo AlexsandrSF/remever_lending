@@ -81,4 +81,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // 4. Логика переворота мозаичных карточек (Flip Cards)
+    const mosaicCards = document.querySelectorAll('.mosaic-card');
+    
+    mosaicCards.forEach(card => {
+        card.addEventListener('click', () => {
+            // Переключаем класс flipped для запуска CSS 3D трансформации
+            card.classList.toggle('flipped');
+        });
+    });
 });

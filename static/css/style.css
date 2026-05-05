@@ -687,3 +687,116 @@ section {
     justify-content: flex-end;
   }
 }
+
+/* ==================   Interactive Mosaic Comparison Section   ========================================================================== */
+.mosaic-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.mosaic-title-wrapper h2 {
+  margin-bottom: 0;
+  max-width: 400px;
+}
+
+.mosaic-card {
+  perspective: 1500px;
+  cursor: pointer;
+  /* Базовая тень карточки */
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  border-radius: var(--radius-md);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Активное состояние (нажатие) - уменьшение тени на 2/3 и легкое вдавливание */
+.mosaic-card:active {
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  transform: translateY(2px);
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 220px;
+  /* Высокотекстурная и тактильная анимация (пружинящая кривая Безье) */
+  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-style: preserve-3d;
+}
+
+.mosaic-card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: var(--radius-md);
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Состояние ожидания */
+.card-front {
+  background-color: #EFEFF4;
+  color: var(--color-text-main);
+  transition: background-color var(--transition);
+}
+
+.card-front p {
+  color: var(--color-text-muted);
+}
+
+/* Ховерное состояние (только если устройство поддерживает hover) */
+@media (hover: hover) {
+  .mosaic-card:hover .card-front {
+    background-color: #DBD7F4;
+  }
+}
+
+/* Состояние перевернутой карточки */
+.card-back {
+  background-color: #4633BF;
+  color: var(--color-white);
+  transform: rotateY(180deg);
+}
+
+.card-back p, .card-back h3 {
+  color: var(--color-white);
+}
+
+.card-back .card-tag.tag-white {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Сетка для Десктопа (Неправильная мозаика) */
+@media (min-width: 1024px) {
+  .mosaic-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-auto-rows: minmax(180px, auto);
+    gap: 24px;
+    align-items: start;
+  }
+
+  .mosaic-title-wrapper {
+    grid-column: 1 / 6;
+    grid-row: 1;
+    align-self: center;
+  }
+
+  /* Размещение элементов для эффекта "неправильной мозаики" */
+  .pos-1 { grid-column: 1 / 6; grid-row: 2; }
+  .pos-2 { grid-column: 6 / 10; grid-row: 1; margin-top: 40px; }
+  .pos-3 { grid-column: 10 / 13; grid-row: 1 / 3; }
+  .pos-4 { grid-column: 6 / 13; grid-row: 2; align-self: end; }
+  .pos-5 { grid-column: 1 / 5; grid-row: 3; }
+  .pos-6 { grid-column: 5 / 13; grid-row: 3; }
+}
