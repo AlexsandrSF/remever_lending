@@ -198,20 +198,138 @@
             </div>
         </section>
 
-        <!-- Секция Аудитория -->
-        <section class="audience">
-            <div class="container">
-                <h2>Remever для каждого, кто учится и развивается</h2>
-                <div class="audience-gallery">
-                    <img src="{{ url_for('static', filename='images/audience-student.png') }}" alt="Студент-медик">
-                    <div class="audience-card-with-btn">
-                        <img src="{{ url_for('static', filename='images/audience-teacher.png') }}" alt="Преподаватель">
-                        <a href="#teachers" class="btn btn-primary absolute-btn">Я учитель</a>
-                    </div>
-                    <img src="{{ url_for('static', filename='images/audience-schoolboy.png') }}" alt="Школьник">
-                </div>
+<!-- Секция Аудитория -->
+<section class="audience" id="audience">
+    <div class="container">
+        <!-- Заголовок и соцсети (как в дизайне) -->
+        <div class="audience-header">
+            <h2>Remever для каждого,<br>кто учится и развивается</h2>
+            <div class="audience-socials desktop-only">
+                <a href="#" aria-label="VK"><img src="{{ url_for('static', filename='icons/vk-blue.svg') }}" alt="VK"></a>
+                <a href="#" aria-label="Telegram"><img src="{{ url_for('static', filename='icons/tg-blue.svg') }}" alt="Telegram"></a>
+                <a href="#" aria-label="Max"><img src="{{ url_for('static', filename='icons/max-blue.svg') }}" alt="Max"></a>
             </div>
-        </section>
+        </div>
+
+        <!-- Слайдер Аудитории -->
+        <div class="audience-slider-wrapper">
+            <div class="audience-slider-track" id="audience-slider">
+                
+                <!-- Карточка 1: Студент -->
+                <div class="audience-card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img class="bg-image" src="{{ url_for('static', filename='images/audience-student.png') }}" alt="Я студент">
+                            <div class="hover-overlay"></div>
+                            <button class="btn btn-primary">Я студент</button>
+                        </div>
+                        <div class="card-back">
+                            <div class="back-content">
+                                <h3 class="back-title">Для студента:</h3>
+                                <ul class="back-list">
+                                    <li>Усваивай информацию в 3 раза быстрее</li>
+                                    <li>Готовься к сессии без стресса</li>
+                                    <li>Помни материал даже после экзамена</li>
+                                </ul>
+                            </div>
+                            <button class="btn btn-primary">Начать сейчас</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Карточка 2: Учитель -->
+                <div class="audience-card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img class="bg-image" src="{{ url_for('static', filename='images/audience-teacher.png') }}" alt="Я учитель">
+                            <div class="hover-overlay"></div>
+                            <button class="btn btn-primary">Я учитель</button>
+                        </div>
+                        <div class="card-back">
+                            <div class="back-content">
+                                <h3 class="back-title">Для учителя:</h3>
+                                <ul class="back-list">
+                                    <li>Современный инструмент для обучения своих учеников</li>
+                                    <li>Готовый материал в удобной вам форме по программе</li>
+                                    <li>Рекомендуйте своим ученикам и получайте бонусы</li>
+                                </ul>
+                            </div>
+                            <button class="btn btn-primary">Начать сейчас</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Карточка 3: Школьник -->
+                <div class="audience-card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img class="bg-image" src="{{ url_for('static', filename='images/audience-schoolboy.png') }}" alt="Я школьник">
+                            <div class="hover-overlay"></div>
+                            <button class="btn btn-primary">Я школьник</button>
+                        </div>
+                        <div class="card-back">
+                            <div class="back-content">
+                                <h3 class="back-title">Для школьника:</h3>
+                                <ul class="back-list">
+                                    <li>Повышай оценки по всем предметам</li>
+                                    <li>Легко готовься к ЕГЭ и ОГЭ</li>
+                                    <li>Трать меньше времени на домашку</li>
+                                </ul>
+                            </div>
+                            <button class="btn btn-primary">Начать сейчас</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Карточка 4: Профи (Добавочная) -->
+                <div class="audience-card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <!-- Путь к изображению профи (замените на нужный) -->
+                            <img class="bg-image" src="{{ url_for('static', filename='images/audience-profi.png') }}" alt="Я профи">
+                            <div class="hover-overlay"></div>
+                            <button class="btn btn-primary">Я профи</button>
+                        </div>
+                        <div class="card-back">
+                            <div class="back-content">
+                                <h3 class="back-title">Для профи:</h3>
+                                <ul class="back-list">
+                                    <li>Поддерживай квалификацию в тонусе</li>
+                                    <li>Изучай новые технологии на ходу</li>
+                                    <li>Повышай стоимость на рынке труда</li>
+                                </ul>
+                            </div>
+                            <button class="btn btn-primary">Начать сейчас</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Карточка 5: Родитель (Добавочная) -->
+                <div class="audience-card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img class="bg-image" src="{{ url_for('static', filename='images/audience-parent.png') }}" alt="Я родитель">
+                            <div class="hover-overlay"></div>
+                            <button class="btn btn-primary">Я родитель</button>
+                        </div>
+                        <div class="card-back">
+                            <div class="back-content">
+                                <h3 class="back-title">Для родителя:</h3>
+                                <ul class="back-list">
+                                    <li>Помогайте ребенку учиться эффективнее</li>
+                                    <li>Следите за прогрессом и результатами</li>
+                                    <li>Сделайте учебу увлекательной</li>
+                                </ul>
+                            </div>
+                            <button class="btn btn-primary">Начать сейчас</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
 
         <!-- Секция Повседневная рутина -->
         <section class="routine">

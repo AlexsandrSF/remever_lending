@@ -279,37 +279,182 @@ section {
   color: var(--color-text-muted);
 }
 
-/* =================   Audience Section   ========================================================================== */
+/* =================   Audience Section (Обновленная) ========================================================= */
 .audience {
   background-color: var(--color-bg-purple);
+  overflow: hidden; /* Чтобы слайдер не вылезал за пределы секции */
 }
 
-.audience h2 {
+.audience-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 40px;
+}
+
+.audience-header h2 {
+  text-align: left;
+  margin-bottom: 0;
+}
+
+.audience-socials {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+/* Обёртка слайдера */
+.audience-slider-wrapper {
+  width: 100%;
+}
+
+.audience-slider-track {
+  display: flex;
+  gap: 40px;
+  overflow-x: auto;
+  padding-bottom: 20px; /* Запас для теней при ховере/клике */
+  cursor: grab;
+  /* Скрываем стандартный скроллбар для эстетики, если нужно */
+  scrollbar-width: none; 
+}
+
+.audience-slider-track::-webkit-scrollbar {
+  display: none;
+}
+
+.audience-slider-track:active {
+  cursor: grabbing;
+}
+
+/* Карточка слайдера */
+.audience-card {
+  width: 407px;
+  height: 640px;
+  flex-shrink: 0;
+  perspective: 1500px;
+  cursor: pointer;
+}
+
+.audience-card .card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  /* Анимация идентична блоку .mosaic-card */
+  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-style: preserve-3d;
+}
+
+.audience-card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+.audience-card .card-front,
+.audience-card .card-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+/* Лицевая сторона */
+.audience-card .card-front {
+  background-color: var(--color-bg-card);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 40px;
+}
+
+.audience-card .card-front img.bg-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.audience-card .hover-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #DBD7F4;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 2;
+}
+
+.audience-card:hover .hover-overlay {
+  opacity: 0.2;
+}
+
+.audience-card .card-front .btn {
+  position: relative;
+  z-index: 3;
+}
+
+/* Обратная сторона */
+.audience-card .card-back {
+  background-color: #DBD7F4;
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 40px 32px;
+}
+
+.audience-card .back-title {
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 32px;
+  color: var(--color-text-main);
+  margin-bottom: 32px;
   text-align: center;
 }
 
-.audience-gallery {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+.audience-card .back-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-.audience-gallery img {
-  border-radius: var(--radius-md);
-  width: 100%;
-  object-fit: cover;
-}
-
-.audience-card-with-btn {
+.audience-card .back-list li {
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  color: var(--color-text-main);
+  margin-bottom: 20px;
   position: relative;
+  padding-left: 24px;
+  line-height: 1.4;
 }
 
-.absolute-btn {
+.audience-card .back-list li::before {
+  content: "•";
   position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: calc(100% - 40px);
+  left: 0;
+  color: var(--color-primary);
+  font-size: 24px;
+  line-height: 1;
+}
+
+.audience-card .card-back .btn {
+  align-self: center;
+}
+
+/* Адаптив для планшетов (чтобы заголовок на мобильных тоже смотрелся) */
+@media (max-width: 767px) {
+  .audience-header {
+    flex-direction: column;
+    align-items: center;
+  }
+  .audience-header h2 {
+    text-align: center;
+  }
 }
 
 /* ========================   Routine Section   ========================================================================== */
@@ -755,6 +900,7 @@ section {
   flex-direction: column;
   justify-content: center;
 }
+
 
 
 /* Состояние ожидания */
