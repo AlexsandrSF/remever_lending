@@ -21,7 +21,7 @@
     Arial, sans-serif ;
   --radius-sm: 12px;
   --radius-md: 20px;
-  --radius-lg: 32px;
+  --radius-lg: 40px;
   --transition: 0.3s ease;
 }
 
@@ -79,8 +79,8 @@ h3 {
 
 .font-bad-script {
   font-family: "Bad Script";
-  font-weight: 400;
-  font-style: normal;
+  font-weight:lighter;
+  /* font-style: normal; */
 }
 
 .font-motivat-headline {
@@ -88,8 +88,6 @@ h3 {
     align-items: center;
     color: var(--color-primary);
     font-family: "Bad Script", cursive;
-    font-style: bad-script-Regular;
-    /* font-weight: 100; */
     font-size: 40px;
     margin-bottom: 12px;
 }
@@ -97,7 +95,7 @@ h3 {
 /* ====================   Layout Components   ========================================================================== */
 .container {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1300px;
   margin: 0 auto;
 }
 
@@ -138,6 +136,8 @@ section {
 .btn-primary {
   background-color: var(--color-primary);
   color: var(--color-white);
+  font-family: "inter";
+  font-size: 20px;  
   }
 
 .btn-primary:hover {
@@ -243,6 +243,7 @@ section {
 .method-text p {
   color: var(--color-text-muted);
   margin-bottom: 16px;
+  font-family: var(--font-main);
 }
 
 /* ==================   Comparison Section   ========================================================================== */
@@ -356,7 +357,7 @@ section {
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   overflow: hidden;
 }
 
@@ -364,10 +365,19 @@ section {
 .audience-card .card-front {
   background-color: var(--color-bg-card);
   display: flex;
+  flex-direction: row; /* Сбрасываем влияние column из секции мозаики */
+  align-items: flex-end; /* Прижимаем кнопку к нижнему краю */
+  justify-content: center; /* Центрируем строго по горизонтали */
+  padding: 0; /* Очищаем мешающие отступы из общего правила */
+  padding-bottom: 40px; /* Задаем точный отступ 40px снизу (по макету) */
+}
+/* .audience-card .card-front {
+  background-color: var(--color-bg-card);
+  display: flex;
   align-items: flex-end;
   justify-content: center;
   padding-bottom: 40px;
-}
+} */
 
 .audience-card .card-front img.bg-image {
   position: absolute;
@@ -467,12 +477,20 @@ section {
 .routine-content p {
   color: var(--color-text-muted);
   margin-bottom: 16px;
+  font-family: "inter";
+  font-size: 20px;
 }
 
 .routine-schedule {
   margin-top: 32px;  
-  text-align: center;
+  text-align: center;  
+  display: grid;
+  }
+
+.twenty-minutes {
+  gap: 16px;
 }
+
 
 .highlight-text {
   font-family: "Bad Script";
@@ -690,6 +708,7 @@ section {
   .routine-schedule {
     display: grid;
     text-align: center;
+    gap: 8em;
   }
 
   .days-list {
@@ -787,11 +806,17 @@ section {
 .routine-image-hero-image {
   transform: scale(1.6); /* Увеличит картинку на 10% */
   transform-origin: center; /* Точка масштабирования */
+  border-radius: var(--radius-lg);
 }
 
 .routine-image {
   transform: scale(1); /* Увеличит картинку на 10% */
   transform-origin: center; /* Точка масштабирования */
+  border-radius: var(--radius-lg);
+}
+
+.routine-image img{
+  border-radius: var(--radius-lg);
 }
 
 
