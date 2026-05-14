@@ -83,14 +83,34 @@ h3 {
   /* font-style: normal; */
 }
 
+.font-bad-script li {
+  font-family: "Bad Script";
+  font-weight:lighter;
+  font-size: 24px;
+}
+
 .font-motivat-headline {
     display: inline-block;
     align-items: center;
     color: var(--color-primary);
-    font-family: "Bad Script", cursive;
+    font-family: "Bad Script";
     font-size: 40px;
-    margin-bottom: 12px;
 }
+
+.font-motivat-headline-underline {
+    display: inline-block;
+    align-items: center;
+    color: var(--color-primary);
+    font-family: "Bad Script";
+    font-size: 40px;
+    text-decoration: underline;
+    text-underline-offset: 8px;
+    text-decoration-thickness: 1px;
+    text-decoration-color: var(--color-primary);
+}
+
+
+
 
 /* ====================   Layout Components   ========================================================================== */
 .container {
@@ -487,8 +507,7 @@ section {
   display: grid;
   }
 
-.twenty-minutes {
-  gap: 16px;
+.twenty-minutes {  
 }
 
 
@@ -519,8 +538,16 @@ section {
 .days-list li.checked::before {
   content: "✓";
   position: absolute;
-  left: -12px;
+  left: -30px;       /* возможно, потребуется подправить */
+  color: #008456;
+  font-size: 24px;   /* 👈 размер галочки */
+  line-height: 1;    /* 👈 убирает лишние отступы по высоте */
+  top: 8%;          /* 👈 центрирование по вертикали */
 }
+
+
+
+
 
 /* =====================   Video Section   ========================================================================== */
 .video-placeholder {
@@ -708,13 +735,13 @@ section {
   .routine-schedule {
     display: grid;
     text-align: center;
-    gap: 8em;
+    gap: 80px;
   }
 
   .days-list {
-    justify-content: space-between;
-    gap: 32px
-    padding: 32 0 32 0;
+    justify-content: center;
+    gap: 50px;
+    padding: 12px 0px;
   }
 
   .footer-inner {
