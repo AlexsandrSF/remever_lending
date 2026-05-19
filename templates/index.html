@@ -15,12 +15,9 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
     <!-- Подключение шрифтов -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bad+Script&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-
 </head>
-<body >
+<body>
 
     <!-- Шапка сайта -->
     <header class="header">
@@ -51,6 +48,38 @@
             </button>
         </div>
     </header>
+
+    <!-- Оверлей мобильного меню (Новый блок) -->
+    <div class="mobile-menu-overlay" id="mobile-menu">
+        <div class="mobile-menu-header">
+            <a href="/" class="logo">
+                <img src="{{ url_for('static', filename='icons/remeverlogo.svg') }}" alt="Remever Logo">
+            </a>
+            <button class="mobile-close-btn" id="mobile-close" aria-label="Закрыть меню">
+                <span class="close-line"></span>
+                <span class="close-line"></span>
+            </button>
+        </div>
+        
+        <nav class="mobile-nav">
+            <ul class="mobile-nav-list">
+                <li><a href="#constructor" class="mobile-menu-btn">конструктор карточек</a></li>
+                <li><a href="#investors" class="mobile-menu-btn">для инвесторов</a></li>
+                <li><a href="#teachers" class="mobile-menu-btn">для учителей</a></li>
+            </ul>
+        </nav>
+
+        <div class="mobile-menu-bottom">
+            <a href="#" aria-label="Скачать в RuStore" class="mobile-app-badge">
+                <img src="{{ url_for('static', filename='icons/rustore-badge.jpg') }}" alt="Доступно в RuStore">
+            </a>
+            <div class="mobile-social-links">
+                <a href="#" aria-label="VK"><img src="{{ url_for('static', filename='icons/vk.svg') }}" alt="VK"></a>
+                <a href="#" aria-label="Telegram"><img src="{{ url_for('static', filename='icons/tg.svg') }}" alt="Telegram"></a>
+                <a href="#" aria-label="Max"><img src="{{ url_for('static', filename='icons/max.svg') }}" alt="Max" style="height: 40px;"></a>
+            </div>
+        </div>
+    </div>
 
     <main class="main">
         <!-- Секция Hero -->

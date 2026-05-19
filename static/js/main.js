@@ -1,34 +1,22 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Логика мобильного бургер-меню
+    // 1. Логика мобильного бургер-меню (Оверлей)
     const burgerMenu = document.querySelector('.burger-menu');
-    const desktopNav = document.querySelector('.desktop-nav');
+    const mobileMenuOverlay = document.getElementById('mobile-menu');
+    const mobileCloseBtn = document.getElementById('mobile-close');
     
-    if (burgerMenu && desktopNav) {
+    if (burgerMenu && mobileMenuOverlay && mobileCloseBtn) {
         burgerMenu.addEventListener('click', () => {
-            const isActive = burgerMenu.classList.toggle('is-active');
-            
-            if (isActive) {
-                // Применяем стили для отображения меню на мобильных
-                desktopNav.style.display = 'block';
-                desktopNav.style.position = 'absolute';
-                desktopNav.style.top = '100%';
-                desktopNav.style.left = '0';
-                desktopNav.style.width = '100%';
-                desktopNav.style.backgroundColor = 'var(--color-white)';
-                desktopNav.style.padding = '20px';
-                desktopNav.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
-                
-                // Блокируем скролл страницы
-                document.body.style.overflow = 'hidden';
-            } else {
-                // Сбрасываем инлайн-стили при закрытии
-                desktopNav.style.display = '';
-                desktopNav.style.position = '';
-                document.body.style.overflow = '';
-            }
+            mobileMenuOverlay.classList.add('is-active');
+            // Блокируем скролл страницы на фоне
+            document.body.style.overflow = 'hidden';
+        });
+
+        mobileCloseBtn.addEventListener('click', () => {
+            mobileMenuOverlay.classList.remove('is-active');
+            // Сбрасываем блокировку скролла
+            document.body.style.overflow = '';
         });
     }
-
 
     // 2. Плавный скролл по якорным ссылкам и закрытие мобильного меню
     const anchorLinks = document.querySelectorAll('a[href^="#"]');
@@ -49,8 +37,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 e.preventDefault();
                 
                 // Закрываем мобильное меню, если оно открыто
-                if (burgerMenu && burgerMenu.classList.contains('is-active')) {
-                    burgerMenu.click();
+                if (mobileMenuOverlay && mobileMenuOverlay.classList.contains('is-active')) {
+                    mobileMenuOverlay.classList.remove('is-active');
+                    document.body.style.overflow = '';
                 }
                 
                 // Плавная прокрутка к элементу
@@ -61,7 +50,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-
 
     // 3. Логика аккордеона FAQ
     const accordionHeaders = document.querySelectorAll('.accordion-header');
@@ -92,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-// 5. Логика слайдера Аудитории (Drag-to-scroll и плавный Edge Bounce)
+    // 5. Логика слайдера Аудитории (Drag-to-scroll и плавный Edge Bounce)
     const sliderTrack = document.getElementById('audience-slider');
     
     if (sliderTrack) {
@@ -155,7 +143,5 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-
-
 
 });
