@@ -15,6 +15,10 @@
   --color-bg-card: #f3f3f8;
   --color-white: #ffffff;
   --color-border: #e0e0e0;
+  /* Фоновая сетка из макета */
+  --background-image:
+    linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
   /* Шрифты и радиусы */
   --font-main:
     "Inter", "Bad Script", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
@@ -31,15 +35,11 @@ body {
   font-family: var(--font-main);
   color: var(--color-text-main);
   background-color: var(--color-white);
-  /* Фоновая сетка из макета */
-  background-image:
-    linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+  background-image: var(--background-image);
   background-size: 20px 20px;
   font-size: 16px;
   line-height: 1.5;
-  overflow-x: hidden;
-  
+  overflow-x: hidden;  
 }
 
 img {
@@ -182,7 +182,9 @@ section {
 
 .header {
   padding: 12px 0;
-  position: fixed;
+  position: absolute;
+  top: 0;
+  left: 0;
   z-index: 100;
   width: 100%;
 }
@@ -309,7 +311,7 @@ section {
 .audience-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: flex-start;
   margin-bottom: 40px;
 }
 
@@ -320,7 +322,7 @@ section {
 
 .audience-socials {
   display: flex;
-  gap: 16px;
+  gap: 32px;
   margin-bottom: 8px;
 }
 
@@ -614,8 +616,8 @@ section {
 /* ===============   Bottom CTA & Footer   ========================================================================== */
 .bottom-cta {
   background-color: var(--color-bg-purple);
-  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-  padding-bottom: 0;
+  border-radius: var(--radius-lg);
+  padding-bottom: 80px;
 }
 
 .cta-inner {
@@ -657,9 +659,16 @@ section {
 }
 
 .footer {
-  background-color: var(--color-white);
-  padding: 40px 0;
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  background-image: var(--background-image);
+  height: 72px;
+  display: flex;
+  justify-content: center;
+  /* padding: 40px 0; */
+  /* border-top: 1px solid rgba(0, 0, 0, 0.05); */
+}
+
+.app-badges img {
+  max-height: 48px;
 }
 
 .footer-inner {
@@ -781,7 +790,7 @@ section {
   }
 
   section {
-    padding: 80px 0;
+    padding: 80px 0px;
   }
 
   .desktop-only {
@@ -808,14 +817,16 @@ section {
 .item-list {
   width: auto;
   text-align: center;
+  margin-top: 0px;  
+  margin-bottom: 0px;
+  color: var(--color-text-muted)
 }
-
-
 
   .nav-list a {
     font-size: 16px;
     font-weight: 500;
     transition: color var(--transition);
+    font-family: var(--font-main);
   }
 
   .nav-list a:hover {
