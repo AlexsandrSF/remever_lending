@@ -24,7 +24,7 @@
     "Inter", "Bad Script", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
     Arial, sans-serif ;
   --radius-sm: 12px;
-  --radius-md: 20px;
+  --radius-md: 24px;
   --radius-lg: 40px;
   --transition: 0.3s ease;
 }
@@ -491,8 +491,11 @@ section {
     align-items: center;
   }
   .audience-header h2 {
-    text-align: center;
+    text-align: left;
+    align-items: left;
+    width: 100%;
   }
+  
 }
 
 /* ========================   Routine Section   ========================================================================== */
@@ -749,11 +752,12 @@ section {
 
   .method-image,
   .method-text,
-  .routine-image,
   .routine-content,
+  .routine-image,
   .cta-image {
     flex: 1;
   }
+
 
   .cta-content {
     flex: 1;
@@ -1069,7 +1073,6 @@ section {
         height: auto;    /* Сбрасываем жесткую высоту в 640px */
         aspect-ratio: 407 / 640; /* Сохраняем оригинальные пропорции карточки из макета */
     }
-
     
   /* Растягиваем фиолетовый фон на всю ширину экрана, компенсируя padding: 16px у блока .main */
     .audience {
@@ -1079,6 +1082,48 @@ section {
       padding-right: 16px;
     }
 
+        /* Адаптируем карточки, чтобы они были по центру экрана с нужными отступами */
+    .audience-card {
+      width: calc(100vw - 32px); /* Ширина экрана минус отступы по 16px слева и справа */
+      height: auto;
+      aspect-ratio: 407 / 640; /* Сохраняем оригинальные пропорции макета */
+      scroll-snap-align: center; /* Примагничиваем карточку точно по центру при скролле */
+    }
+
+    .audience-slider-track {
+      gap: 16px; /* Немного сужаем промежуток между карточками для мобильных */
+      padding-right: 16px; /* Оставляем отступ в самом конце скролла */
+      scroll-snap-type: x mandatory; /* Добавляем плавный snap-эффект при свайпе */
+    }
+  
+     /* Пропорционально уменьшаем шрифты и отступы внутри перевернутой карточки */
+    .audience-card .back-title {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    
+    .audience-card .back-list li {
+      font-size: 16px;
+      margin-bottom: 12px;
+    }
+    
+    .audience-card .card-back {
+      padding: 24px 20px;
+    }
+
+    .audience-socials {
+      display: flex;
+      gap: 40px;
+      margin-bottom: 8px;
+    }
+
+    .audience-header {
+      display: flex;
+      justify-content: space-between;
+      
+      margin-bottom: 32px;
+      gap: 32px;
+    }
 
     .hero {
       padding-top: 24px;
@@ -1143,6 +1188,11 @@ section {
       transform-origin: top left; /* Точка отсчета сверху по центру, чтобы не перекрыть RuStore */
       max-width: 100%;
     }
+
+    .routine-image img{
+      border-radius: var(--radius-lg);
+    }
+
 
     .mosaic-title-wrapper br {
       display: none;  
