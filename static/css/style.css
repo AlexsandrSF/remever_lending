@@ -11,7 +11,8 @@
   --color-text-main: #111111;
   --color-text-muted: #666666;
   --color-bg-light: #f8f9fa;
-  --color-bg-purple: #e6e4fa;
+  --color-bg-purple: #EFEFF4;
+  --color-bg-seconary: #DBD7F4;
   --color-bg-card: #f3f3f8;
   --color-white: #ffffff;
   --color-border: #e0e0e0;
@@ -420,7 +421,7 @@ section {
 .audience-card .hover-overlay {
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background-color: #DBD7F4;
+  background-color: #DBD7F4;  
   opacity: 0;
   transition: opacity 0.3s ease;
   z-index: 2;
@@ -625,7 +626,7 @@ section {
 
 /* ===============   Bottom CTA & Footer   ========================================================================== */
 .bottom-cta {
-  background-color: var(--color-bg-purple);
+  background-color: var(--color-bg-seconary);
   
   padding-bottom: 80px;
 }
@@ -1178,6 +1179,17 @@ section {
       padding: 64px 16px;
     }
     
+    .hero-content-text {
+      color: var(--color-text-muted);
+      margin-bottom: 24px;
+      font-family: var(--font-main);
+      font-weight: normal;
+      font-size: 16px;
+      
+    }
+
+
+
 /* 1. Отключаем стандартный gap, чтобы контролировать отступы точно */
     .hero-inner {
       gap: 0;
@@ -1313,7 +1325,7 @@ section {
       /* Свойства justify-content и align-items здесь удалены, так как они не работают без display: flex */
     }
 
-
+ыщг
     .footer-nav li {
       color: var(--color-primary);
       font-weight: 500;
