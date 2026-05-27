@@ -239,7 +239,6 @@ section {
 .hero-inner {
   display: flex;
   flex-direction: column;
-  gap: 32px;
   text-align: center;
   margin-top: 2%;
 }
@@ -699,7 +698,7 @@ section {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  font-size: 20px;
+  font-size: 16px;
   color: var(--color-primary);
 }
 
@@ -870,8 +869,7 @@ section {
   .hero-image {
     flex: 1;
     max-width: 50%;
-    mask-image: linear-gradient(to right, black 70%, transparent)
-
+    mask-image: linear-gradient(to right, black 70%, transparent);
   }
 
 .routine-image-hero-image {
@@ -1102,7 +1100,7 @@ section {
         aspect-ratio: 407 / 640; /* Сохраняем оригинальные пропорции карточки из макета */
     }
     
-  /* Растягиваем фиолетовый фон на всю ширину экрана, компенсируя padding: 16px у блока .main */
+    /* Растягиваем фиолетовый фон на всю ширину экрана, компенсируя padding: 16px у блока .main */
     .audience {
       margin-left: -16px;
       margin-right: -16px;
@@ -1110,7 +1108,7 @@ section {
       padding-right: 16px;
     }
 
-        /* Адаптируем карточки, чтобы они были по центру экрана с нужными отступами */
+    /* Адаптируем карточки, чтобы они были по центру экрана с нужными отступами */
     .audience-card {
       width: calc(100vw - 32px); /* Ширина экрана минус отступы по 16px слева и справа */
       height: auto;
@@ -1124,7 +1122,7 @@ section {
       scroll-snap-type: x mandatory; /* Добавляем плавный snap-эффект при свайпе */
     }
   
-     /* Пропорционально уменьшаем шрифты и отступы внутри перевернутой карточки */
+    /* Пропорционально уменьшаем шрифты и отступы внутри перевернутой карточки */
     .audience-card .back-title {
       font-size: 24px;
       margin-bottom: 20px;
@@ -1142,9 +1140,9 @@ section {
     .audience-socials {
       display: flex;
       gap: 40px;
-      margin-bottom: 64px;
-
+      margin-bottom: 32px;
     }
+
 
     .audience-header {
       display: flex;
@@ -1184,13 +1182,35 @@ section {
       margin-bottom: 24px;
       font-family: var(--font-main);
       font-weight: normal;
-      font-size: 16px;
+      font-size: 20px;
       
+    }
+
+  /* Легко встраивайся */
+    /* Шрифт настройки */
+    .routine-content p {
+      color: var(--color-text-muted);
+      margin-bottom: 16px;
+      font-family: "inter";
+      font-size: 16px;
     }
 
 
 
-/* 1. Отключаем стандартный gap, чтобы контролировать отступы точно */
+  /* Переворачивающиеся карточки.  */
+    /* Шрифт для mobile переоврачивающихся карточек.  */
+    .card-inner h3 {
+      font-family: "Inter";
+      font-size: 20px;
+    }
+
+    .card-inner p {
+      font-family: "Inter";
+      font-size: 16px;  
+    }
+
+
+  /* 1. Отключаем стандартный gap, чтобы контролировать отступы точно */
     .hero-inner {
       gap: 0;
     }
@@ -1300,6 +1320,36 @@ section {
       display: block;        /* убирает стандартный нижний отступ inline-элементов */
     }
 
+
+    /* Вопросы и ответы  */
+    .accordion-header {
+      width: 100%;
+      text-align: left;
+      padding: 20px 0;
+      background: none;
+      border: none;
+      font-size: 20px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 44px;
+    }
+
+    .accordion-content {
+      display: none;
+      padding-bottom: 24px;
+      color: var(--color-text-muted);
+      font-size: 16px;
+    }
+
+    .accordion-header[aria-expanded="true"] + .accordion-content {
+      display: block;
+    }
+
+
+
     .cta-content h2 {
       font-size: 28px;
     }
@@ -1320,17 +1370,18 @@ section {
 
 
     .footer-nav a {
-      margin-bottom: 20px;
+      margin-bottom: 16px;
       display: inline-block;
-      /* Свойства justify-content и align-items здесь удалены, так как они не работают без display: flex */
     }
 
-ыщг
     .footer-nav li {
       color: var(--color-primary);
       font-weight: 500;
-      font-size: 20px;
-      /* Свойства justify-content и align-items удалены */
+      font-size: 16px;
+    }
+
+    .copyright {
+      font-size: 16px;
     }
 
     .footer {
@@ -1477,10 +1528,14 @@ section {
     justify-content: center;
     gap: 32px;
     height: 52px;
+    padding-top: 8px;
 }
 
 .mobile-social-links img {
-  height: 48px;
+  height: 40px;
+  margin-top: 8px;
+  align-items: center;
+
 }
 
 .mobile-social-links a {
