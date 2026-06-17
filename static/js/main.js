@@ -51,24 +51,52 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 3. Логика аккордеона FAQ
-    const accordionHeaders = document.querySelectorAll('.accordion-header');
+    // // 3. Логика аккордеона FAQ
+    // const accordionHeaders = document.querySelectorAll('.accordion-header');
     
+    // accordionHeaders.forEach(header => {
+    //     header.addEventListener('click', () => {
+    //         const isExpanded = header.getAttribute('aria-expanded') === 'true';
+            
+    //         // Опционально: закрываем все остальные открытые вкладки
+    //         accordionHeaders.forEach(otherHeader => {
+    //             otherHeader.setAttribute('aria-expanded', 'false');
+    //         });
+            
+    //         // Переключаем состояние текущей вкладки
+    //         if (!isExpanded) {
+    //             header.setAttribute('aria-expanded', 'true');
+    //         }
+    //     });
+    // });
+
+
+    // 3. Логика аккордеона FAQ - обновленная версия
+    const accordionHeaders = document.querySelectorAll('.accordion-header');
+
     accordionHeaders.forEach(header => {
         header.addEventListener('click', () => {
             const isExpanded = header.getAttribute('aria-expanded') === 'true';
             
-            // Опционально: закрываем все остальные открытые вкладки
+            // Оставляем возможность открывать каждый аккордеон независимо
+            // или раскомментировать следующие строки, чтобы закрывать другие при открытии нового
+            /*
             accordionHeaders.forEach(otherHeader => {
-                otherHeader.setAttribute('aria-expanded', 'false');
+                if(otherHeader !== header) {
+                    otherHeader.setAttribute('aria-expanded', 'false');
+                }
             });
+            */
             
             // Переключаем состояние текущей вкладки
-            if (!isExpanded) {
-                header.setAttribute('aria-expanded', 'true');
-            }
+            header.setAttribute('aria-expanded', isExpanded ? 'false' : 'true');
         });
     });
+
+
+
+
+
 
     // 4. Логика переворота мозаичных карточек (Flip Cards)
     const mosaicCards = document.querySelectorAll('.mosaic-card');

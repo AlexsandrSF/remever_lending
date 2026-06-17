@@ -1,3 +1,36 @@
+/* ========================   Refactoring Update START========================================================================== */
+
+/* Добавить в начало файла */
+html {
+  scroll-behavior: smooth; /* Для плавной прокрутки */
+}
+
+/* Улучшить производительность анимаций */
+.mosaic-card,
+.audience-card,
+.accordion-header {
+  will-change: transform;
+}
+
+/* Оптимизация для мобильных устройств */
+@media (max-width: 768px) {
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Улучшить восприятие тач-событий */
+  button, 
+  .accordion-header,
+  .mosaic-card,
+  .audience-card {
+    touch-action: manipulation;
+  }
+}
+
+/* ========================   Refactoring Update END  ========================================================================== */
+
+
 * {
   margin: 0;
   padding: 0;
