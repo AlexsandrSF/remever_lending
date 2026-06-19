@@ -20,7 +20,7 @@ html {
   }
   
   /* Улучшить восприятие тач-событий */
-  button, 
+  .button, 
   .accordion-header,
   .mosaic-card,
   .audience-card {
@@ -196,7 +196,8 @@ section {
 .btn-primary {
   background-color: var(--color-primary);
   color: var(--color-white);
-  font-family: "inter";
+  font-family: var(--font-main);
+  font-weight: normal;
   font-size: 20px;  
   }
 
@@ -1017,9 +1018,6 @@ section {
   font-family: "Inter";
   font-size: 20px;  
 }
-
-
-
 .mosaic-card.flipped .card-inner {
   transform: rotateY(180deg);
 }
@@ -1171,7 +1169,27 @@ section {
     }
     
     .audience-card .card-back {
-      padding: 24px 20px;
+      padding: 32px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .audience-card .card-back .back-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .audience-card .card-back .btn {
+      align-self: center;
+      margin-top: auto;
+    }
+
+    .audience-card .card-front {
+      padding: 0;
+      padding-bottom: 32px;
     }
 
     .audience-socials {

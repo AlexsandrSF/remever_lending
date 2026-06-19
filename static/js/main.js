@@ -51,26 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // // 3. Логика аккордеона FAQ
-    // const accordionHeaders = document.querySelectorAll('.accordion-header');
-    
-    // accordionHeaders.forEach(header => {
-    //     header.addEventListener('click', () => {
-    //         const isExpanded = header.getAttribute('aria-expanded') === 'true';
-            
-    //         // Опционально: закрываем все остальные открытые вкладки
-    //         accordionHeaders.forEach(otherHeader => {
-    //             otherHeader.setAttribute('aria-expanded', 'false');
-    //         });
-            
-    //         // Переключаем состояние текущей вкладки
-    //         if (!isExpanded) {
-    //             header.setAttribute('aria-expanded', 'true');
-    //         }
-    //     });
-    // });
-
-
     // 3. Логика аккордеона FAQ - обновленная версия
     const accordionHeaders = document.querySelectorAll('.accordion-header');
 
