@@ -1084,7 +1084,7 @@ section {
   .mosaic-title-wrapper {
     grid-column: 1 / 5;
     grid-row: 1;
-    align-self: center;
+    align-self: flex-start;
   }
 
   /* Размещение элементов для эффекта "неправильной мозаики" */
