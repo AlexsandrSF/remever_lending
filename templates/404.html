@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Страница не найдена — Remever{% endblock %}
+{% block robots %}noindex{% endblock %}
+{% block content %}
+<main class="main" id="main">
+    <section class="legal">
+        <div class="container legal-inner">
+            <h1>Страница не найдена</h1>
+            <p><a href="{{ url_for('index') }}">Вернуться на главную</a></p>
+        </div>
+    </section>
+</main>
+{% endblock %}

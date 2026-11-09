@@ -1,0 +1,2 @@
+-r requirements.txt
+Pillow>=10  # only for tools/make_webp.py

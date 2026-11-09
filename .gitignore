@@ -1,14 +1,12 @@
-# Виртуальное окружение Python
+# Python
 venv/
 env/
 .env
-
-# Кэш Python и скомпилированные файлы
 __pycache__/
 *.pyc
 *.pyo
+.pytest_cache/
 
-# Системные файлы (macOS / Windows)
+# OS
 .DS_Store
-Thumbs.dbЕргьиыювипше
-git
+Thumbs.db
