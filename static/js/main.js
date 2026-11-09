@@ -1,161 +1,108 @@
+/* Landing interactions: mobile menu, smooth anchors, FAQ accordion, flip cards, audience slider. No dependencies. */
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Логика мобильного бургер-меню
-    const burgerMenu = document.querySelector('.burger-menu');
-    const desktopNav = document.querySelector('.desktop-nav');
-    
-    if (burgerMenu && desktopNav) {
-        burgerMenu.addEventListener('click', () => {
-            const isActive = burgerMenu.classList.toggle('is-active');
-            
-            if (isActive) {
-                // Применяем стили для отображения меню на мобильных
-                desktopNav.style.display = 'block';
-                desktopNav.style.position = 'absolute';
-                desktopNav.style.top = '100%';
-                desktopNav.style.left = '0';
-                desktopNav.style.width = '100%';
-                desktopNav.style.backgroundColor = 'var(--color-white)';
-                desktopNav.style.padding = '20px';
-                desktopNav.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
-                
-                // Блокируем скролл страницы
-                document.body.style.overflow = 'hidden';
-            } else {
-                // Сбрасываем инлайн-стили при закрытии
-                desktopNav.style.display = '';
-                desktopNav.style.position = '';
-                document.body.style.overflow = '';
-            }
-        });
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // 1. Mobile menu
+    const burger = document.querySelector('.burger-menu');
+    const overlay = document.getElementById('mobile-menu');
+    const closeBtn = document.getElementById('mobile-close');
+
+    const setMenu = (open) => {
+        if (!overlay) return;
+        overlay.classList.toggle('is-active', open);
+        document.body.style.overflow = open ? 'hidden' : '';
+        if (burger) burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    };
+    if (burger && overlay && closeBtn) {
+        burger.addEventListener('click', () => setMenu(true));
+        closeBtn.addEventListener('click', () => setMenu(false));
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setMenu(false); });
     }
 
-
-    // 2. Плавный скролл по якорным ссылкам и закрытие мобильного меню
-    const anchorLinks = document.querySelectorAll('a[href^="#"]');
-    
-    anchorLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            const targetId = this.getAttribute('href');
-            
-            // Пропускаем заглушки
-            if (targetId === '#' || targetId === '#more' || targetId === '#start') {
-                e.preventDefault();
-                return;
-            }
-            
-            const targetElement = document.querySelector(targetId);
-            
-            if (targetElement) {
-                e.preventDefault();
-                
-                // Закрываем мобильное меню, если оно открыто
-                if (burgerMenu && burgerMenu.classList.contains('is-active')) {
-                    burgerMenu.click();
-                }
-                
-                // Плавная прокрутка к элементу
-                targetElement.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
+    // 2. Smooth anchors (same-page only); placeholder links ("#") do nothing
+    document.querySelectorAll('a[href*="#"]').forEach((link) => {
+        link.addEventListener('click', (e) => {
+            const url = new URL(link.href, window.location.href);
+            const href = link.getAttribute('href');
+            if (href === '#') { e.preventDefault(); return; }
+            if (url.pathname !== window.location.pathname || !url.hash) return;
+            const target = document.getElementById(decodeURIComponent(url.hash.slice(1)));
+            if (!target) return;
+            e.preventDefault();
+            setMenu(false);
+            target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
         });
     });
 
-
-    // 3. Логика аккордеона FAQ
-    const accordionHeaders = document.querySelectorAll('.accordion-header');
-    
-    accordionHeaders.forEach(header => {
+    // 3. FAQ accordion (items open independently)
+    document.querySelectorAll('.accordion-header').forEach((header) => {
         header.addEventListener('click', () => {
-            const isExpanded = header.getAttribute('aria-expanded') === 'true';
-            
-            // Опционально: закрываем все остальные открытые вкладки
-            accordionHeaders.forEach(otherHeader => {
-                otherHeader.setAttribute('aria-expanded', 'false');
-            });
-            
-            // Переключаем состояние текущей вкладки
-            if (!isExpanded) {
-                header.setAttribute('aria-expanded', 'true');
-            }
+            header.setAttribute('aria-expanded', header.getAttribute('aria-expanded') === 'true' ? 'false' : 'true');
         });
     });
 
-    // 4. Логика переворота мозаичных карточек (Flip Cards)
-    const mosaicCards = document.querySelectorAll('.mosaic-card');
-    
-    mosaicCards.forEach(card => {
-        card.addEventListener('click', () => {
-            // Переключаем класс flipped для запуска CSS 3D трансформации
-            card.classList.toggle('flipped');
+    // 4. Flip cards (comparison mosaic): click or Enter/Space
+    document.querySelectorAll('.mosaic-card').forEach((card) => {
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('role', 'button');
+        const flip = () => card.classList.toggle('flipped');
+        card.addEventListener('click', flip);
+        card.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flip(); }
         });
     });
 
-// 5. Логика слайдера Аудитории (Drag-to-scroll и плавный Edge Bounce)
-    const sliderTrack = document.getElementById('audience-slider');
-    
-    if (sliderTrack) {
+    // 5. Audience slider: drag-to-scroll with elastic edges
+    const track = document.getElementById('audience-slider');
+    if (track) {
         let isDown = false;
-        let startX;
-        let scrollLeft;
+        let startX = 0;
+        let scrollLeft = 0;
 
-        sliderTrack.addEventListener('mousedown', (e) => {
+        track.addEventListener('mousedown', (e) => {
             isDown = true;
-            sliderTrack.style.transition = 'none'; // Отключаем transition при ручном перетаскивании
-            startX = e.pageX - sliderTrack.offsetLeft;
-            scrollLeft = sliderTrack.scrollLeft;
+            track.style.transition = 'none';
+            startX = e.pageX - track.offsetLeft;
+            scrollLeft = track.scrollLeft;
         });
 
-        const resetSliderDrag = () => {
+        const release = () => {
             if (!isDown) return;
             isDown = false;
-            // Возвращаем плавность для отскока
-            sliderTrack.style.transition = 'transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)';
-            sliderTrack.style.transform = 'translateX(0)';
+            track.style.transition = 'transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)';
+            track.style.transform = 'translateX(0)';
         };
+        track.addEventListener('mouseleave', release);
+        track.addEventListener('mouseup', release);
 
-        sliderTrack.addEventListener('mouseleave', resetSliderDrag);
-        sliderTrack.addEventListener('mouseup', resetSliderDrag);
-
-        sliderTrack.addEventListener('mousemove', (e) => {
+        track.addEventListener('mousemove', (e) => {
             if (!isDown) return;
             e.preventDefault();
-            const x = e.pageX - sliderTrack.offsetLeft;
-            const walk = (x - startX) * 1.5; // Скорость скролла
-            const newScrollLeft = scrollLeft - walk;
-            const maxScroll = sliderTrack.scrollWidth - sliderTrack.clientWidth;
-
-            // Логика эластичного отскока при выходе за границы
-            if (newScrollLeft < 0) {
-                // Тянем за левый край
-                sliderTrack.scrollLeft = 0;
-                sliderTrack.style.transform = `translateX(${Math.abs(newScrollLeft) * 0.3}px)`;
-            } else if (newScrollLeft > maxScroll) {
-                // Тянем за правый край
-                const overscroll = newScrollLeft - maxScroll;
-                sliderTrack.scrollLeft = maxScroll;
-                sliderTrack.style.transform = `translateX(-${overscroll * 0.3}px)`;
+            const x = e.pageX - track.offsetLeft;
+            const next = scrollLeft - (x - startX) * 1.5;
+            const max = track.scrollWidth - track.clientWidth;
+            if (next < 0) {
+                track.scrollLeft = 0;
+                track.style.transform = `translateX(${Math.abs(next) * 0.3}px)`;
+            } else if (next > max) {
+                track.scrollLeft = max;
+                track.style.transform = `translateX(-${(next - max) * 0.3}px)`;
             } else {
-                // Обычный скролл
-                sliderTrack.style.transform = 'translateX(0)';
-                sliderTrack.scrollLeft = newScrollLeft;
+                track.style.transform = 'translateX(0)';
+                track.scrollLeft = next;
             }
         });
     }
 
-    // 6. Логика переворота карточек Аудитории (с игнорированием клика по кнопке)
-    const audienceCards = document.querySelectorAll('.audience-card');
-    
-    audienceCards.forEach(card => {
+    // 6. Audience cards: flip on click/Enter, except when the click is on the "start" link
+    document.querySelectorAll('.audience-card').forEach((card) => {
+        card.setAttribute('tabindex', '0');
+        const flip = () => card.classList.toggle('flipped');
         card.addEventListener('click', (e) => {
-            // Если клик был по кнопке "Начать сейчас", не переворачиваем (даем сработать ссылке/событию кнопки)
-            if (!e.target.closest('.card-back .btn')) {
-                card.classList.toggle('flipped');
-            }
+            if (!e.target.closest('.card-back .btn')) flip();
+        });
+        card.addEventListener('keydown', (e) => {
+            if (e.target === card && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); flip(); }
         });
     });
-
-
-
 });

@@ -1,0 +1,13 @@
+[Unit]
+Description=Remever landing (gunicorn)
+After=network.target
+
+[Service]
+WorkingDirectory=/srv/remever_landing
+EnvironmentFile=/srv/remever_landing/.env
+ExecStart=/srv/remever_landing/venv/bin/gunicorn -w 2 -b 127.0.0.1:5001 wsgi:app
+Restart=always
+User=www-data
+
+[Install]
+WantedBy=multi-user.target

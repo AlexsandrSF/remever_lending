@@ -1,137 +1,77 @@
-<!-- Основываясь на предоставленном макете и Roadmap (в частности, Этап 2 и Этап 5), вот готовый код для файла `templates/index.html`.  -->
-
-<!-- Разметка выполнена с использованием семантических тегов (`<header>`, `<main>`, `<section>`, `<footer>`), подготовлена для подхода Mobile First (добавлен `viewport`, выделен класс для скрытия QR-кода на мобильных, добавлена кнопка бургер-меню) и интегрирована с синтаксисом шаблонизатора Jinja2 (Flask) для правильного подключения статических файлов. Также добавлен блок-заглушка для Яндекс Метрики.
-
-```html -->
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Remever — твой умный помощник в изучении</title>
-    
-    <!-- Подключение базовых стилей -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/reset.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-
-    <!-- Подключение шрифтов -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bad+Script&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-
-</head>
-<body >
-
-    <!-- Шапка сайта -->
-    <header class="header">
-        <div class="container header-inner">
-            <a href="/" class="logo">
-                <img src="{{ url_for('static', filename='icons/remeverlogo.svg') }}" alt="Remever Logo">
-            </a>
-            
-            <nav class="desktop-nav">
-                <ul class="nav-list">
-                    <li class="item-list"><a href="#constructor"><p>конструктор</p><p>карточек</p></a></li>
-                    <li class="item-list"><a href="#investors"><p>для</p><p>инвесторов</p></a></li>
-                    <li class="item-list"><a href="#teachers"><p>для</p><p>учителей</p></a></li>
-                </ul>
-            </nav>
-
-            <div class="social-links desktop-socials">
-                <a href="#" aria-label="VK"><img src="{{ url_for('static', filename='icons/vk.svg') }}" alt="VK"></a>
-                <a href="#" aria-label="Telegram"><img src="{{ url_for('static', filename='icons/tg.svg') }}" alt="Telegram"></a>
-                <a href="#" aria-label="Max"><img src="{{ url_for('static', filename='icons/max.svg') }}" alt="Max" style="height: 40px;"></a>
-            </div>
-
-            <!-- Бургер-меню для мобильной версии -->
-            <button class="burger-menu" aria-label="Открыть меню">
-                <span class="burger-line"></span>
-                <span class="burger-line"></span>
-                <span class="burger-line"></span>
-            </button>
-        </div>
-    </header>
-
-    <main class="main">
-        <!-- Секция Hero -->
+{% extends "base.html" %}
+{% import '_macros.html' as m with context %}
+{% block title %}Remever — твой умный помощник в изучении{% endblock %}
+{% block preload %}<link rel="preload" as="image" type="image/webp" imagesrcset="{{ url_for('static', filename='images/webp/hero-phones-900.webp') }} 900w, {{ url_for('static', filename='images/webp/hero-phones-1600.webp') }} 1600w" imagesizes="(max-width: 768px) 100vw, 640px">{% endblock %}
+{% block content %}
+<main class="main" id="main">
         <section class="hero">
             <div class="container hero-inner">
                 <div class="hero-content">
                     <span class="tag font-bad-script">без интернета!!!</span>
                     <h1 class="text-primary-color">Тренируйся где угодно<br>Запоминай навсегда</h1>
                     <p class="hero-content-text">Remever — твой умный помощник в изучении любой информации с помощью научно доказанного метода интервального повторения</p>
-                    
-                    <!-- QR-код (скрывается на мобильных устройствах через CSS класс desktop-only) -->
                     <div class="qr-block desktop-only">
-                        <img src="{{ url_for('static', filename='images/1600/qr-code.png') }}" alt="QR код для скачивания">
+                        <img src="{{ url_for('static', filename='images/1600/qr-code.png') }}" alt="QR-код для скачивания приложения" width="183" height="188">
                         <span class="qr-text">скачать приложение</span>
                     </div>
                 </div>
                 <div class="hero-image routine-image-hero-image">
-                    <img src="{{ url_for('static', filename='images/hero-phones-hd.png') }}" alt="Интерфейс приложения Remever на смартфонах">
+                    {{ m.picture('hero-phones', 'Интерфейс приложения Remever на смартфонах', [900, 1600], '(max-width: 768px) 100vw, 640px', lazy=false) }}
+                </div>
+                <div class="app-store-download">
+                    {{ m.store_button(200, 72) }}
                 </div>
             </div>
         </section>
-
-        <!-- Секция О методе -->
         <section class="method-info">
             <div class="container method-inner">
                 <div class="method-image">
-                    <img src="{{ url_for('static', filename='images/app-notificatioins.png') }}" alt="Уведомление на экране блокировки">
+                    {{ m.picture('app-notifications', 'Уведомление на экране блокировки', [630], '(max-width: 768px) 100vw, 630px', lazy=true) }}
                 </div>
                 <div class="method-text">
-                    <h2>Ты не зубришь. Ты учишься вспоминать.</h2>
-                    <p class="hero-content-text">Многочасовая зубрежка утомляет и не учит твой мозг вспоминать. Чтобы легко вспомнить информацию в нужный момент, нужно ее запомнить и периодически припоминать.</p>
-                    <p class="hero-content-text">Когда мозг собирается забыть информацию, алгоритм Remever (на основе интервального повторения) определяет это и мягко подталкивает тебя вспомнить. В этот момент ты получишь уведомление о том, что пора потренироваться.</p>
+                    <h2>Учись вспоминать!</h2>
+                    <p class="hero-content-text">Как бы хорошо ты не запомнил информацию, она забудится если её не вспоминать. </p>
+                    <p class="hero-content-text">Remever создан чтобы научиться легко и быстро вспоминать любую, важную для вас информацию.</p>
                     <div class="btn-container">
-                        <a href="#more" class="btn btn-primary">Подробнее о методе</a>
+                        <a href="#comparison" class="btn btn-primary">Подробнее о методе</a>
                     </div>
                 </div>
             </div>
         </section>
-
-        <!-- Секция Сравнения методов -->
         <section class="comparison" id="comparison">
             <div class="container">
                 <div class="mosaic-grid">
-                    <!-- Заголовок -->
                     <div class="mosaic-title-wrapper">
-                        <h2>Переверни и сравни<br />методы изучения</h2>
+                        <h2>Переверни и сравни <br/>методы изучения</h2>
                     </div>
-
-                    <!-- Карточка 1 -->
                     <div class="mosaic-card pos-1">
                         <div class="card-inner">
                             <div class="card-front">
                                 <span class="card-tag">#зубрежкамногочасовая</span>
-                                <h3>Низкая эффективность запоминания:</h3>
-                                <p>Информация быстро забывается (эффект «в одно ухо влетело, в другое вылетело»), так как не переводится в долговременную память.</p>
+                                <h3>Хорошо, если смог запомнить:</h3>
+                                <p>Жаль не можешь вспомнить! Организм избавляется от всего, чем мы не пользуемся. Уходят мышцы если не тренить, забываются формулы, даты, интересные факты если нет повода их вспоминать.</p>
                             </div>
                             <div class="card-back">
                                 <span class="card-tag tag-white">#учусремевер</span>
-                                <h3>Высокая эффективность запоминания:</h3>
-                                <p>Remever подскажет, когда потренироваться, чтобы материал остался в памяти навсегда. Алгоритм определяет этот момент на основе кривой Эббингауза.</p>
+                                <h3>Интервальные повторения — повышение качества запоминания:</h3>
+                                <p>Добавленные вами карточки будут добавляться в тренировку реже с каждым положительным ответом.</p>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Карточка 2 -->
                     <div class="mosaic-card pos-2">
                         <div class="card-inner">
                             <div class="card-front">
                                 <span class="card-tag">#зубрежкамногочасовая</span>
-                                <h3>Кратковременный результат:</h3>
-                                <p>Подходит только для сдачи зачёта или экзамена «на завтра», после чего знания стираются.</p>
+                                <h3>Хороший способ "врезать" факты в память:</h3>
+                                <p>На дистанции, без повторений, знания таят как мороженое во рту. Только чувствовал вкус и вот нужно снова "грызть гранит знаний".</p>
                             </div>
                             <div class="card-back">
                                 <span class="card-tag tag-white">#учусремевер</span>
                                 <h3>Продолжительный результат:</h3>
-                                <p>Позволяет помнить информацию месяцы и годы, формируя устойчивые глубокие знания.</p>
+                                <p>Каждое новое припоминание, делает нейронную связь всё основательней. И уже через 10 повторений в течение месяца эта связь подобно широкой магистрали, основательной и что главное предпочтительной для ленивого мозга.</p>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Карточка 3 -->
                     <div class="mosaic-card pos-3">
                         <div class="card-inner">
                             <div class="card-front">
@@ -142,34 +82,30 @@
                             <div class="card-back">
                                 <span class="card-tag tag-white">#учусремевер</span>
                                 <h3>Небольшие усилия на регулярной основе:</h3>
-                                <p>Несколько раз в день по 5 минут Remever подталкивает мозг выделить и вспомнить нужную информацию. Именно такую информацию он считает полезной.</p>
+                                <p>Несколько раз в день по 5 минут Remever помогает мозгу подсветить важную информацию. Именно такую информацию он считает полезной.</p>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Карточка 4 -->
                     <div class="mosaic-card pos-4">
                         <div class="card-inner">
                             <div class="card-front">
                                 <span class="card-tag">#зубрежкамногочасовая</span>
                                 <h3>Психологическая усталость и стресс:</h3>
-                                <p>Монотонная, скучная нагрузка приводит к истощению и отвращает к учёбе.</p>
+                                <p>Монотонная, скучная нагрузка не "веселит" мозг, он скорее захочет поспать, нежели запоминать что значит этот дорожный знак.</p>
                             </div>
                             <div class="card-back">
                                 <span class="card-tag tag-white">#учусремевер</span>
                                 <h3>Контролируемый результат и level up:</h3>
-                                <p>Видимый прогресс и статистика повышают уверенность и интерес к учебе.</p>
+                                <p>Если карточка для запоминания получилось большой и сложной, разбей её на несколько прямо в процессе тренировки. Переосмысление информации тоже очень полезно. Мозг получает быстрый дофамин, подобно рилсам. Не убегай в соц.сети!!! Там весело в моменте и грустно в перспективе! )</p>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Карточка 5 -->
                     <div class="mosaic-card pos-5">
                         <div class="card-inner">
                             <div class="card-front">
                                 <span class="card-tag">#зубрежкамногочасовая</span>
                                 <h3>Иллюзия компетентности:</h3>
-                                <p>Постоянное чтение одного и того же создаёт ложное ощущение знания, хотя на деле припоминание без подсказок затруднено.</p>
+                                <p>Постоянное чтение одного и того же создаёт ложное ощущение знания, но спустя пару дней вспомнить всё равно очень сложно.</p>
                             </div>
                             <div class="card-back">
                                 <span class="card-tag tag-white">#учусремевер</span>
@@ -178,8 +114,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Карточка 6 -->
                     <div class="mosaic-card pos-6">
                         <div class="card-inner">
                             <div class="card-front">
@@ -197,29 +131,20 @@
                 </div>
             </div>
         </section>
-
-<!-- Секция Аудитория -->
 <section class="audience" id="audience">
     <div class="container">
-        <!-- Заголовок и соцсети (как в дизайне) -->
         <div class="audience-header">
             <h2>Remever для каждого,<br>кто учится и развивается</h2>
             <div class="audience-socials desktop-only">
-                <a href="#" aria-label="VK"><img src="{{ url_for('static', filename='icons/vk.svg') }}" alt="VK"></a>
-                <a href="#" aria-label="Telegram"><img src="{{ url_for('static', filename='icons/tg.svg') }}" alt="Telegram"></a>
-                <a href="#" aria-label="Max"><img src="{{ url_for('static', filename='icons/max.svg') }}" alt="Max" style="height: 40px";></a>
+                {{ m.social_links() }}
             </div>
         </div>
-
-        <!-- Слайдер Аудитории -->
         <div class="audience-slider-wrapper">
             <div class="audience-slider-track" id="audience-slider">
-                
-                <!-- Карточка 1: Студент -->
                 <div class="audience-card">
                     <div class="card-inner">
                         <div class="card-front">
-                            <img class="bg-image" src="{{ url_for('static', filename='images/audience-student.png') }}" alt="Я студент">
+                            {{ m.picture('audience-student', 'Я студент', [820], '410px', lazy=true, cls='bg-image') }}
                             <div class="hover-overlay"></div>
                             <button class="btn btn-primary">Я студент</button>
                         </div>
@@ -227,21 +152,19 @@
                             <div class="back-content">
                                 <h3 class="back-title">Для студента:</h3>
                                 <ul class="back-list">
-                                    <li>Усваивай информацию в 3 раза быстрее</li>
+                                    <li>Многократное ускорение усвоения информации</li>
                                     <li>Готовься к сессии без стресса</li>
                                     <li>Помни материал даже после экзамена</li>
                                 </ul>
                             </div>
-                            <button class="btn btn-primary">Начать сейчас</button>
+                            <a class="btn btn-primary" href="{{ links.app }}">Начать сейчас</a>
                         </div>
                     </div>
                 </div>
-
-                <!-- Карточка 2: Учитель -->
                 <div class="audience-card">
                     <div class="card-inner">
                         <div class="card-front">
-                            <img class="bg-image" src="{{ url_for('static', filename='images/audience-teacher.png') }}" alt="Я учитель">
+                            {{ m.picture('audience-teacher', 'Я учитель', [820], '410px', lazy=true, cls='bg-image') }}
                             <div class="hover-overlay"></div>
                             <button class="btn btn-primary">Я учитель</button>
                         </div>
@@ -251,19 +174,17 @@
                                 <ul class="back-list">
                                     <li>Современный инструмент для обучения своих учеников</li>
                                     <li>Готовый материал в удобной вам форме по программе</li>
-                                    <li>Рекомендуйте своим ученикам и получайте бонусы</li>
+                                    <li>Рекомендуйте приложение своим ученикам</li>
                                 </ul>
                             </div>
-                            <button class="btn btn-primary">Начать сейчас</button>
+                            <a class="btn btn-primary" href="{{ links.app }}">Начать сейчас</a>
                         </div>
                     </div>
                 </div>
-
-                <!-- Карточка 3: Школьник -->
                 <div class="audience-card">
                     <div class="card-inner">
                         <div class="card-front">
-                            <img class="bg-image" src="{{ url_for('static', filename='images/audience-schoolboy.png') }}" alt="Я школьник">
+                            {{ m.picture('audience-schoolboy', 'Я школьник', [820], '410px', lazy=true, cls='bg-image') }}
                             <div class="hover-overlay"></div>
                             <button class="btn btn-primary">Я школьник</button>
                         </div>
@@ -276,17 +197,14 @@
                                     <li>Трать меньше времени на домашку</li>
                                 </ul>
                             </div>
-                            <button class="btn btn-primary">Начать сейчас</button>
+                            <a class="btn btn-primary" href="{{ links.app }}">Начать сейчас</a>
                         </div>
                     </div>
                 </div>
-
-                <!-- Карточка 4: Профи (Добавочная) -->
                 <div class="audience-card">
                     <div class="card-inner">
                         <div class="card-front">
-                            <!-- Путь к изображению профи (замените на нужный) -->
-                            <img class="bg-image" src="{{ url_for('static', filename='images/audience-profi.png') }}" alt="Я профи">
+                            {{ m.picture('audience-profi', 'Я профи', [820], '410px', lazy=true, cls='bg-image') }}
                             <div class="hover-overlay"></div>
                             <button class="btn btn-primary">Я профи</button>
                         </div>
@@ -299,16 +217,14 @@
                                     <li>Повышай стоимость на рынке труда</li>
                                 </ul>
                             </div>
-                            <button class="btn btn-primary">Начать сейчас</button>
+                            <a class="btn btn-primary" href="{{ links.app }}">Начать сейчас</a>
                         </div>
                     </div>
                 </div>
-
-                <!-- Карточка 5: Родитель (Добавочная) -->
                 <div class="audience-card">
                     <div class="card-inner">
                         <div class="card-front">
-                            <img class="bg-image" src="{{ url_for('static', filename='images/audience-parent.png') }}" alt="Я родитель">
+                            {{ m.picture('audience-parent', 'Я родитель', [820], '410px', lazy=true, cls='bg-image') }}
                             <div class="hover-overlay"></div>
                             <button class="btn btn-primary">Я родитель</button>
                         </div>
@@ -321,21 +237,18 @@
                                     <li>Сделайте учебу увлекательной</li>
                                 </ul>
                             </div>
-                            <button class="btn btn-primary">Начать сейчас</button>
+                            <a class="btn btn-primary" href="{{ links.app }}">Начать сейчас</a>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
 </section>
-
-        <!-- Секция Повседневная рутина -->
         <section class="routine">
             <div class="container routine-inner">
                 <div class="routine-image">
-                    <img src="{{ url_for('static', filename='images/subway-guy.png') }}" alt="Парень учится в метро">
+                    {{ m.picture('subway-guy', 'Парень учится в метро', [600, 1000], '(max-width: 768px) 100vw, 600px', lazy=true) }}
                 </div>
                 <div class="routine-content">
                     <h2>Легко встраивай тренировки в повседневную рутину</h2>
@@ -344,7 +257,7 @@
                     <p>Крутыши тренят в Remever вместо соцсетей :)</p>
                     <div class="routine-schedule">
                         <div class="btn-container">
-                            <a href="#start" class="btn btn-primary">Начать сейчас</a>
+                            <a href="{{ links.app }}" class="btn btn-primary">Начать сейчас</a>
                         </div>
                         <div class="twenty-minutes">
                             <p>
@@ -358,142 +271,64 @@
                                 <li class="checked">ПТ</li>
                                 <li class="checked">СБ</li>
                                 <li class="checked">ВС</li>
-                        </div>
-                        </ul>
+</ul>
+</div>
                     </div>
                 </div>
             </div>
         </section>
-
-        <!-- Секция Видео -->
-        <section class="video-block">
-            <div class="container">
-                <div class="video-placeholder">
-                    <button class="play-btn" aria-label="Воспроизвести видео">
-                        <img src="{{ url_for('static', filename='icons/play-icon.svg') }}" alt="Play">
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <!-- Секция FAQ -->
-        <section class="faq">
+        <section class="faq" id="faq">
             <div class="container">
                 <h2>Ответы на часто задаваемые вопросы</h2>
                 <div class="accordion" id="faq-accordion">
                     <div class="accordion-item">
-                        <button class="accordion-header" aria-expanded="false">
+                        <button class="accordion-header" aria-expanded="false" aria-controls="faq-1" id="faq-btn-1">
                             Можно ли пользоваться бесплатно?
-                            <span class="icon-arrow"></span>
+                            <span class="icon-arrow" aria-hidden="true"></span>
                         </button>
-                        <div class="accordion-content">
-                            <p>Да, вы можете использовать приложение абсолютно бесплатно в течение пробного периода (7 дней), затем необходимо выбрать один из тарифов: с оплатой за время использования приложения или с оплатой за количество изучаемых коллекций. Для учителей использование приложения бесплатно навсегда при условии добавления не менее 1 коллекции* в месяц.</p>
+                        <div class="accordion-content" id="faq-1" role="region" aria-labelledby="faq-btn-1">
+                            <p>Да. Приложение запускается бесплатным для всех пользователей.</p>
                         </div>
                     </div>
                     <div class="accordion-item">
-                        <button class="accordion-header" aria-expanded="false">
+                        <button class="accordion-header" aria-expanded="false" aria-controls="faq-2" id="faq-btn-2">
                             Я не могу тренироваться ежедневно, повлияет ли это на скорость изучения материала?
-                            <span class="icon-arrow"></span>
+                            <span class="icon-arrow" aria-hidden="true"></span>
                         </button>
-                        <div class="accordion-content"><p>Ответ...</p></div>
-                    </div>
-                    <div class="accordion-item">
-                        <button class="accordion-header" aria-expanded="false">
-                            Я - автор, у меня есть много знаний и материала, который я хотел бы опубликовать для других людей, куда мне обратиться?
-                            <span class="icon-arrow"></span>
-                        </button>
-                        <div class="accordion-content"><p>Ответ...</p></div>
-                    </div>
-                    <div class="accordion-item">
-                        <button class="accordion-header" aria-expanded="false">
-                            Как поделиться коллекцией с друзьями?
-                            <span class="icon-arrow"></span>
-                        </button>
-                        <div class="accordion-content"><p>Ответ...</p></div>
-                    </div>
-                    <div class="accordion-item">
-                        <button class="accordion-header" aria-expanded="false">
-                            Есть ли ограничения по количеству коллекций?
-                            <span class="icon-arrow"></span>
-                        </button>
-                        <div class="accordion-content"><p>Ответ...</p></div>
+                        <div class="accordion-content" id="faq-2" role="region" aria-labelledby="faq-btn-2">
+                            <p>Карточки, срок повторения которых наступил, ждут вас в очереди тренировки. Чем регулярнее вы повторяете, тем лучше результат, но пропуск не сбрасывает ваш прогресс.</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
-
-        <!-- Секция Pre-Footer CTA -->
         <section class="bottom-cta">
             <div class="container cta-inner">
                 <div class="cta-image">
-                    <img src="{{ url_for('static', filename='images/1600/app-statistics.png') }}" alt="Статистика в приложении">
+                    {{ m.picture('app-statistics', 'Статистика в приложении', [635], '(max-width: 768px) 100vw, 635px', lazy=true) }}
                 </div>
                 <div class="cta-content">
                     <h2>4×5 минут х 365 дней =<br>1000 фактов навсегда</h2>
                     <p>Remever выбирают те, кто привык побеждать — поддерживайте свои компетенции вместе с лидерами.</p>
-                    
+                    <div class="app-store-download">
+                        {{ m.store_button(200, 72) }}
+                    </div>
                     <div class="cta-links-grid">
                         <ul class="footer-nav">
-                            <li><a href="#students">Студентам</a></li>
-                            <li><a href="#teachers">Учителям</a></li>
-                            <li><a href="#parents">Родителям</a></li>
+                            <li><a href="#audience">Студентам</a></li>
+                            <li><a href="#audience">Учителям</a></li>
+                            <li><a href="#audience">Родителям</a></li>
                         </ul>
                         <ul class="footer-nav">
                             <li><a href="#faq">FAQ</a></li>
-                            <li><a href="#contacts">Контакты</a></li>
-                            <li><a href="#investors">Инвесторам</a></li>
+                            <li><a href="{{ url_for('privacy') }}">Конфиденциальность</a></li>
                         </ul>
                         <div class="cta-qr desktop-only">
-                            <img src="{{ url_for('static', filename='images/1600/qr-code.png') }}" alt="QR код">
+                            <img src="{{ url_for('static', filename='images/1600/qr-code.png') }}" alt="QR-код для скачивания приложения" width="183" height="188" loading="lazy">
                         </div>
                     </div>
                 </div>
             </div>
         </section>
     </main>
-
-    <!-- Подвал сайта -->
-    <footer class="footer">
-        <div class="container footer-inner">
-            <div class="text-primary-color" class="copyright" >© 2026 Remever</div>
-            <div class="legal-links">
-                <a href="#privacy">Политика конфиденциальности</a>
-                <a href="#cookie">Использование cookie</a>
-            </div>
-            <div class="app-badges">
-                <a href="#" aria-label="Скачать в RuStore">
-                    <img src="{{ url_for('static', filename='icons/rustore-badge.jpg') }}" alt="Доступно в RuStore">
-                </a>
-            </div>
-            <div class="social-links">
-                <a href="#" aria-label="VK"><img src="{{ url_for('static', filename='icons/vk.svg') }}" alt="VK"></a>
-                <a href="#" aria-label="Telegram"><img src="{{ url_for('static', filename='icons/tg.svg') }}" alt="Telegram"></a>
-                <a href="#" aria-label="max"><img src="{{ url_for('static', filename='icons/max.svg') }}" alt="max" style="height: 40px"></a>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Подключение JS (Логика аккордеона, бургер-меню и т.д.) -->
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
-
-    <!-- Яндекс Метрика (Этап 7 RoadMap) -->
-    <!-- Yandex.Metrika counter -->
-    <script type="text/javascript">
-       (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-       m[i].l=1*new Date();
-       for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-       k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-       (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-
-       ym(00000000, "init", {
-            clickmap:true,
-            trackLinks:true,
-            accurateTrackBounce:true,
-            webvisor:true
-       });
-    </script>
-    <noscript><div><img src="https://mc.yandex.ru/watch/00000000" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-    <!-- /Yandex.Metrika counter -->
-
-</body>
-</html>
+{% endblock %}

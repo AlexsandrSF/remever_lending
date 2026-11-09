@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Remever{% endblock %}</title>
+    <meta name="description" content="{% block description %}{{ site.description }}{% endblock %}">
+    <meta name="keywords" content="обучение, запоминание, интервальное повторение, карточки, образование, самообразование, интервальные повторения, приложение для запоминания, карточки для изучения, метод Лейтнера, выучить язык, подготовка к ОГЭ, ЕГЭ, ПДД, флеш-карточки, Remever, мнемотехника запоминания, веб приложение для учёбы">
+    <meta name="author" content="Remever">
+    <meta name="robots" content="{% block robots %}index, follow, max-image-preview:large{% endblock %}">
+    <meta name="theme-color" content="#4633bf">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='icons/remeverlogo.svg') }}">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Remever">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:title" content="{{ self.title() }}">
+    <meta property="og:description" content="{{ self.description() }}">
+    <meta property="og:url" content="{{ canonical_url }}">
+    <meta property="og:image" content="{{ og_image }}">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/reset.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/fonts.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block preload %}{% endblock %}
+</head>
+{% import '_macros.html' as m with context %}
+<body{% if site.ym_id %} data-ym-id="{{ site.ym_id }}"{% endif %}>
+    <a class="skip-link" href="#main">К содержимому</a>
+
+    <header class="header">
+        <div class="container header-inner">
+            <a href="{{ url_for('index') }}" class="logo">
+                <img src="{{ url_for('static', filename='icons/remeverlogo.svg') }}" alt="Remever">
+            </a>
+
+            <nav class="desktop-nav" aria-label="Основная навигация">
+                <ul class="nav-list">
+                    <li class="item-list"><a href="{{ url_for('index') }}#comparison"><p>о</p><p>методе</p></a></li>
+                    <li class="item-list"><a href="{{ url_for('index') }}#audience"><p>для</p><p>кого</p></a></li>
+                    <li class="item-list"><a href="{{ url_for('index') }}#faq"><p>частые</p><p>вопросы</p></a></li>
+                </ul>
+            </nav>
+
+            <div class="social-links desktop-socials">
+                {{ m.social_links() }}
+            </div>
+
+            <button class="burger-menu" aria-label="Открыть меню" aria-controls="mobile-menu" aria-expanded="false">
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+            </button>
+        </div>
+    </header>
+
+    <div class="mobile-menu-overlay" id="mobile-menu">
+        <div class="mobile-menu-header">
+            <a href="{{ url_for('index') }}" class="logo">
+                <img src="{{ url_for('static', filename='icons/remeverlogo.svg') }}" alt="Remever">
+            </a>
+            <button class="mobile-close-btn" id="mobile-close" aria-label="Закрыть меню">
+                <span class="close-line"></span>
+                <span class="close-line"></span>
+            </button>
+        </div>
+
+        <nav class="mobile-nav" aria-label="Мобильная навигация">
+            <ul class="mobile-nav-list">
+                <li><a href="{{ url_for('index') }}#comparison" class="mobile-menu-btn">о методе</a></li>
+                <li><a href="{{ url_for('index') }}#audience" class="mobile-menu-btn">для кого</a></li>
+                <li><a href="{{ url_for('index') }}#faq" class="mobile-menu-btn">частые вопросы</a></li>
+            </ul>
+        </nav>
+
+        <div class="mobile-menu-bottom">
+            <div class="mobile-app-badge">{{ m.store_button(160, 58) }}</div>
+            <div class="mobile-social-links">
+                {{ m.social_links() }}
+            </div>
+        </div>
+    </div>
+
+{% block content %}{% endblock %}
+
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div class="text-primary-color copyright">© {{ year }} Remever</div>
+            <div class="legal-links">
+                <a href="{{ url_for('privacy') }}">Политика конфиденциальности</a>
+                <a href="{{ url_for('cookie') }}">Использование cookie</a>
+                {% if site.ym_id %}<button type="button" class="footer-cookie-settings" id="cookie-settings">Настройки cookie</button>{% endif %}
+            </div>
+            <div class="app-badges">
+                {{ m.store_button(111, 40) }}
+            </div>
+            <div class="mobile-social-links audience-socials">
+                {{ m.social_links() }}
+            </div>
+        </div>
+    </footer>
+
+    {% if site.ym_id %}
+    <div class="cookie-banner" id="cookie-banner" role="dialog" aria-label="Согласие на использование cookie" hidden>
+        <p>Мы используем cookie и сервис «Яндекс Метрика», чтобы понимать, как пользуются сайтом. Вы можете согласиться или оставить только необходимые. <a href="{{ url_for('cookie') }}">Подробнее</a></p>
+        <div class="cookie-banner-actions">
+            <button type="button" class="btn btn-primary" id="cookie-accept">Принять</button>
+            <button type="button" class="btn btn-secondary" id="cookie-decline">Только необходимые</button>
+        </div>
+    </div>
+    {% endif %}
+
+    <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/analytics.js') }}" defer></script>
+</body>
+</html>
